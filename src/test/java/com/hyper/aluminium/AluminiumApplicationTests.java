@@ -7,11 +7,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 @SpringBootTest
 class AluminiumApplicationTests {
@@ -73,4 +81,43 @@ class AluminiumApplicationTests {
 		System.out.println(pilots);
     }
 
-}
+    @Test
+    public void addCert() {
+        String serverAddress = "192.168.0.147";
+        int port = 3010; // Telnet默认端口号是23
+
+        try {
+            Socket socket = new Socket(serverAddress, port);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // 连接成功后发送指令
+            out.println("pwd linus");
+
+            // 读取服务器返回的响应
+            String response;
+            while ((response = in.readLine()) != null) {
+                System.out.println("Server: " + response);
+                if (response.contains("Password correct.")) {
+                    // 从用户获取参数
+                    String cid = "4589";
+                    String pwd = "3641";
+                    String level = "STUDENT1";
+                    // 发送命令
+                    out.println("cert add " + cid + " " + pwd + " " + level);
+                    break;
+                }
+            }
+
+            // 关闭连接
+            socket.close();
+        } catch ( IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    }
+
+
+

@@ -5,6 +5,8 @@ import com.alibaba.fastjson2.JSONObject;
 import com.hyper.aluminium.pojo.atc;
 import com.hyper.aluminium.pojo.pilot;
 import com.hyper.aluminium.service.InfoService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.net.HttpURLConnection;
@@ -18,10 +20,12 @@ import java.net.URL;
 
 @Service
 public class InfoServiceImpl implements InfoService {
+    @Value("${fsd.ip}")
+    private String ip;
 
     @Override
     public List<pilot> listOnlinePilots() {
-        String jsonUrl = "http://192.168.0.147/json.php";
+        String jsonUrl = "http://"+ip+"/json.php";
         List<pilot> pilots = null;
         try {
             pilots = new ArrayList<>();
@@ -77,7 +81,8 @@ public class InfoServiceImpl implements InfoService {
 
     @Override
     public List<atc> listOnlineATC() {
-        String jsonUrl = "http://192.168.0.147/json.php";
+
+        String jsonUrl = "http://"+ip+"/json.php";
         List<atc> atcs = null;
         try {
             atcs = new ArrayList<>();
