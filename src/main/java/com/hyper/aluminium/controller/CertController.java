@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Slf4j
-@RestController("")
+@RestController()
 public class CertController {
     private static final Set<String> ALLOWED_LEVELS = new HashSet<>(Arrays.asList(
             "SUSPENDED", "OBSPILOT", "STUDENT1", "STUDENT2", "STUDENT3",
@@ -22,7 +22,7 @@ public class CertController {
     @Autowired
     private CertService certService;
 
-    //TODO ADD ADD CERT&DEL SERT
+
     @PostMapping("/admin/addCert")
     public Result addCert(
             @RequestParam("cid") String cid,

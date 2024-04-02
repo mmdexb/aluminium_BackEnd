@@ -19,7 +19,7 @@ public class CertServiceImpl implements CertService {
     private int port;
 
     @Value("${fsd.pwd}")
-    private String pwd;
+    private String Spwd;
     @Override
     public String addCert(String cid, String pwd, String level) {
         String serverAddress = ip;
@@ -30,7 +30,7 @@ public class CertServiceImpl implements CertService {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             // 连接成功后发送指令
-            out.println("pwd "+pwd);
+            out.println("pwd "+Spwd);
 
             // 读取服务器返回的响应
             String response;
@@ -63,14 +63,14 @@ public class CertServiceImpl implements CertService {
     }
 
     @Override
-    public Object delCert(String cid) {
+    public String delCert(String cid) {
         try {
             Socket socket = new Socket(ip, port);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             // 连接成功后发送指令
-            out.println("pwd "+pwd);
+            out.println("pwd "+Spwd);
 
             // 读取服务器返回的响应
             String response;
@@ -102,14 +102,14 @@ public class CertServiceImpl implements CertService {
     }
 
     @Override
-    public Object modCertLevel(String cid, String level) {
+    public String modCertLevel(String cid, String level) {
         try {
             Socket socket = new Socket(ip, port);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             // 连接成功后发送指令
-            out.println("pwd "+pwd);
+            out.println("pwd "+Spwd);
 
             // 读取服务器返回的响应
             String response;
