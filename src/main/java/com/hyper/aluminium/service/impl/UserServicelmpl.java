@@ -6,6 +6,7 @@ import com.hyper.aluminium.service.CertService;
 import com.hyper.aluminium.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 @Service
 public class UserServicelmpl implements UserService {
@@ -38,5 +39,24 @@ public class UserServicelmpl implements UserService {
         }
 
 
+    }
+
+    @Override
+    public int reg(String cid, String pwd, String realname, String email) {
+        String pwdMD5= DigestUtils.md5DigestAsHex(pwd.getBytes());
+        User e=new User();
+        if(userMapper.IsCidExist(cid)!=null){
+            //cid已存在
+            return 0;
+        }else if(userMapper.IsEmailExist(email)!=null){
+            //email 已存在
+            return 1;
+        }else {
+            //插入数据库
+            userMapper.reg(cid,pwdMD5,realname,email,"OBSPILOT");
+            //调用certService
+            certService.addCert(cid,pwd,"OBSPILOT");
+            return 2;
+        }
     }
 }

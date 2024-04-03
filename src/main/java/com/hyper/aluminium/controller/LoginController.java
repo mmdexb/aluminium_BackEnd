@@ -20,28 +20,53 @@ public class LoginController {
 
 
     @PostMapping("/login")
-    public Result login(@RequestParam("cid") String cid,@RequestParam("password") String pwd){
-        pwd= DigestUtils.md5DigestAsHex(pwd.getBytes());
-        User user=new User();
+    public Result login(@RequestParam("cid") String cid, @RequestParam("password") String pwd) {
+        pwd = DigestUtils.md5DigestAsHex(pwd.getBytes());
+        User user = new User();
         user.setCid(cid);
         user.setPassword(pwd);
-        log.info("用户登录：{}",user);
-        User e= userService.login(user);
-        return e !=null?Result.success():Result.error("用户名或密码错误");
+        log.info("用户登录：{}", user);
+        User e = userService.login(user);
+        return e != null ? Result.success() : Result.error("用户名或密码错误");
 
     }
 
     @PostMapping("/Reset")
-    public Result Reset(@RequestParam("cid") String cid,@RequestParam("password") String pwd){
+    public Result Reset(@RequestParam("cid") String cid, @RequestParam("password") String pwd) {
 
-        String pwdMD5= DigestUtils.md5DigestAsHex(pwd.getBytes());
-        int res = userService.Reset(cid,pwd,pwdMD5);
-        if (res==0){
+        String pwdMD5 = DigestUtils.md5DigestAsHex(pwd.getBytes());
+        int res = userService.Reset(cid, pwd, pwdMD5);
+        if (res == 0) {
             return Result.error("CID不存在");
-        }else{
+        } else {
             return Result.success();
         }
 
     }
 
+    @PostMapping("/reg")
+    public Result reg(@RequestParam("cid") String cid,
+                      @RequestParam("password") String pwd,
+                      @RequestParam("realname") String realname,
+                      @RequestParam("email") String email) {
+        int res = userService.reg(cid, pwd, realname, email);
+
+        if (res == 0) {
+            return Result.error("CID已存在");
+        } else if (res == 1) {
+            return Result.error("邮箱已存在");
+        } else if (res == 2) {
+            return Result.success("注册成功");
+        }
+
+        return Result.error("未知错误");
+    }
+
 }
+
+
+
+
+
+
+

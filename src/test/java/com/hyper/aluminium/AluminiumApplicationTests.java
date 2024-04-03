@@ -2,8 +2,10 @@ package com.hyper.aluminium;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import com.hyper.aluminium.mapper.UserMapper;
 import com.hyper.aluminium.pojo.pilot;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.BufferedReader;
@@ -112,6 +114,13 @@ class AluminiumApplicationTests {
         }
     }
 
+    @Autowired
+    private UserMapper userMapper;
+    @Test
+    public void isCidExist() {
+        System.out.println(userMapper.IsCidExist("6133")); 
+
+}
 
     }
 

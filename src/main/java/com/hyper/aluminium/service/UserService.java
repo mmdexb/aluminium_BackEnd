@@ -7,4 +7,6 @@ public interface UserService {
     User login(User user);
 
     int Reset(String cid, String pwd,String pwdMD5);
+
+    int reg(String cid, String pwd, String realname, String email);
 }
