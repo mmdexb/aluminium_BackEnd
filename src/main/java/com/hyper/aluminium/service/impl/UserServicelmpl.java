@@ -1,12 +1,17 @@
 package com.hyper.aluminium.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.hyper.aluminium.mapper.UserMapper;
+import com.hyper.aluminium.pojo.PageBean;
 import com.hyper.aluminium.pojo.User;
 import com.hyper.aluminium.service.CertService;
 import com.hyper.aluminium.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import java.util.List;
 
 @Service
 public class UserServicelmpl implements UserService {
@@ -59,4 +64,16 @@ public class UserServicelmpl implements UserService {
             return 2;
         }
     }
+
+    @Override
+    public PageBean getAllUser(int page, int pageSize) {
+        PageHelper.startPage(page,pageSize);
+        List<User> users = userMapper.getAllUser();
+        Page<User> userPage = (Page<User>) users;
+
+        PageBean pageBean = new PageBean(userPage.getTotal(), userPage.getResult());
+        return pageBean;
+    }
+
+
 }

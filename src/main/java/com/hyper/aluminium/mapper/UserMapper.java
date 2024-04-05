@@ -5,7 +5,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.stereotype.Service;
+
+
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
@@ -26,5 +28,8 @@ public interface UserMapper {
 
     @Insert("insert into users(cid,password,realname,email,level) values(#{cid},#{pwdMD5},#{realname},#{email},#{level})")
     void reg(String cid, String pwdMD5, String realname, String email,String level);
+
+    @Select("select * from users")
+    public List<User> getAllUser();
 
 }

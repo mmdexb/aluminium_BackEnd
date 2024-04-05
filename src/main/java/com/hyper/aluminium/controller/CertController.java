@@ -1,9 +1,12 @@
 package com.hyper.aluminium.controller;
 
+import com.hyper.aluminium.pojo.PageBean;
 import com.hyper.aluminium.pojo.Result;
 import com.hyper.aluminium.service.CertService;
+import com.hyper.aluminium.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,8 +57,18 @@ public class CertController {
         } else {
             return Result.error("level不合法");
         }
+    }
 
 
+    @Autowired
+    private UserService userService;
+    @GetMapping("/admin/getAllCert")
+    public Result getAllCert(@RequestParam(defaultValue = "1") int page,
+                             @RequestParam(defaultValue = "10") int pageSize) {
+
+        log.info("分页查询,参数{}，{}", page, pageSize);
+        PageBean pagebean= userService.getAllUser(page,pageSize);
+        return Result.success(pagebean);
     }
 
 }
