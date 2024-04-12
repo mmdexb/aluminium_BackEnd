@@ -27,7 +27,7 @@ public class EventServiceImpl implements EventService {
         return pageBean;
 
     }
-
+    //添加
     @Override
     public  void addEvent(event event) {
         eventMapper.addEvent(event);
