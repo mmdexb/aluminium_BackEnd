@@ -16,4 +16,10 @@ public interface UserService {
     PageBean getAllUser(int page, int pageSize);
 
     User GetCertByid(String cid);
+
+    int getPilotNum();
+
+    int getAtcNum();
+
+    int GetOnlineTimeByid(int cid);
 }

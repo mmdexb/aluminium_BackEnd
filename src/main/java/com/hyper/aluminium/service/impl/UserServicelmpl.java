@@ -86,7 +86,29 @@ public class UserServicelmpl implements UserService {
         return user;
     }
 
+    @Override
+    public int getPilotNum() {
+        int num=userMapper.getPilotNum();
+        return num;
+    }
 
+    @Override
+    public int getAtcNum() {
+        int number=0;
+        List<User> users =userMapper.getAllUser();
+        for(User u:users){
+            if (!u.getLevel().equals("OBSPILOT") && !u.getLevel().equals("SUSPENDED")) {
+                number++;
+            }
+        }
+        return number;
+    }
+
+    @Override
+    public int GetOnlineTimeByid(int cid) {
+        int time=userMapper.getOnlineTimeByid(cid);
+        return time;
+    }
 
 
 }

@@ -84,7 +84,7 @@ public class CertController {
         return Result.success(pagebean);
     }
 
-    @GetMapping("/admin/getCertByid")
+    @GetMapping("/public/getCertByid")
     public Result getCertByid(@RequestParam("cid") String cid) {
         log.info("查询cid为{}的用户",cid);
         User user= userService.GetCertByid(cid);

@@ -33,4 +33,9 @@ public interface UserMapper {
     @Select("select * from users")
     public List<User> getAllUser();
 
+    @Select("SELECT COUNT(*) FROM aluminium.users")
+    int getPilotNum();
+
+    @Select("SELECT onlinetime FROM users where cid=#{cid}")
+    int getOnlineTimeByid(int cid);
 }

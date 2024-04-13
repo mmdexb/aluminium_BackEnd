@@ -7,13 +7,12 @@ import com.hyper.aluminium.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.rmi.server.RemoteServer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -80,6 +79,29 @@ public class LoginController {
 
         return Result.error("未知错误");
     }
+
+    @GetMapping("/public/GetPilotNum")
+    public Result GetPilotNum() {
+        int number=0;
+        number= userService.getPilotNum();
+
+        return Result.success(number);
+    }
+    @GetMapping("/public/GetAtcNum")
+    public Result GetAtctNum() {
+        int number=0;
+        number= userService.getAtcNum();
+        return Result.success(number);
+    }
+
+    @GetMapping("/public/GetOnlineTimeByid")
+    public Result GetOnlineTimeByid(@RequestParam("cid") int cid) {
+        int time=userService.GetOnlineTimeByid(cid);
+
+        return Result.success(time);
+    }
+
+
 
 
 
