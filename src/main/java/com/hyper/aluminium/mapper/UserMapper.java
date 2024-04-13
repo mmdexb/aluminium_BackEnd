@@ -1,16 +1,17 @@
 package com.hyper.aluminium.mapper;
 
 import com.hyper.aluminium.pojo.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 
 import java.util.List;
 
 @Mapper
 public interface UserMapper {
+
+    @Delete("DELETE FROM users where cid=#{cid}")
+    void delUser(String cid);
+
     @Select("select * from users where cid=#{cid} and password=#{password}")
     User getcidAndPassword(User user);
 

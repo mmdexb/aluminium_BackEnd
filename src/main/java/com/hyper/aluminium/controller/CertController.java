@@ -1,7 +1,9 @@
 package com.hyper.aluminium.controller;
 
+import com.hyper.aluminium.mapper.UserMapper;
 import com.hyper.aluminium.pojo.PageBean;
 import com.hyper.aluminium.pojo.Result;
+import com.hyper.aluminium.pojo.User;
 import com.hyper.aluminium.service.CertService;
 import com.hyper.aluminium.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,18 +26,30 @@ public class CertController {
             "INSTRUCTOR2", "INSTRUCTOR3", "SUPERVISOR", "ADMINISTRATOR"));
     @Autowired
     private CertService certService;
-
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/admin/addCert")
     public Result addCert(
             @RequestParam("cid") String cid,
             @RequestParam("pwd") String pwd,
-            @RequestParam("level") String level
+            @RequestParam("level") String level,
+            @RequestParam("email") String email,
+            @RequestParam("realname") String realname
+
+
     ) {
         //判断level是否合法
         log.info("add cert cid:{},pwd:{},level:{},", cid, pwd, level);
         if (ALLOWED_LEVELS.contains(level)) {
-            return Result.success(certService.addCert(cid, pwd, level));
+            int res=userService.reg(cid, pwd, realname, email);
+            if (res==0){
+                return Result.error("CID已存在");
+            }else if(res==1){
+                return Result.error("邮箱已存在");
+            }
+            return Result.success(certService.modCertLevel(cid,level));
+
         } else {
             return Result.error("level不合法");
         }
@@ -45,7 +59,7 @@ public class CertController {
     public Result delCert(
             @RequestParam("cid") String cid
     ) {
-
+        userService.delUser(cid);
         return Result.success(certService.delCert(cid));
     }
 
@@ -60,8 +74,7 @@ public class CertController {
     }
 
 
-    @Autowired
-    private UserService userService;
+
     @GetMapping("/admin/getAllCert")
     public Result getAllCert(@RequestParam(defaultValue = "1") int page,
                              @RequestParam(defaultValue = "10") int pageSize) {
@@ -70,5 +83,14 @@ public class CertController {
         PageBean pagebean= userService.getAllUser(page,pageSize);
         return Result.success(pagebean);
     }
+
+    @GetMapping("/admin/getCertByid")
+    public Result getCertByid(@RequestParam("cid") String cid) {
+        log.info("查询cid为{}的用户",cid);
+        User user= userService.GetCertByid(cid);
+        return Result.success(user);
+    }
+
+
 
 }

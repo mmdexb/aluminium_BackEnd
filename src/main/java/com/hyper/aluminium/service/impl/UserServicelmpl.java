@@ -66,6 +66,11 @@ public class UserServicelmpl implements UserService {
     }
 
     @Override
+    public void delUser(String cid) {
+        userMapper.delUser(cid);
+    }
+
+    @Override
     public PageBean getAllUser(int page, int pageSize) {
         PageHelper.startPage(page,pageSize);
         List<User> users = userMapper.getAllUser();
@@ -74,6 +79,14 @@ public class UserServicelmpl implements UserService {
         PageBean pageBean = new PageBean(userPage.getTotal(), userPage.getResult());
         return pageBean;
     }
+
+    @Override
+    public User GetCertByid(String cid) {
+        User user=userMapper.FindByCid(cid);
+        return user;
+    }
+
+
 
 
 }

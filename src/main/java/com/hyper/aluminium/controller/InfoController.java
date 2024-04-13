@@ -29,10 +29,12 @@ public class InfoController {
     @GetMapping("/public/onlineATC")
     public Result listOnlineATC() {
         List<atc> list = infoService.listOnlineATC();
-
-
         return Result.success(list);
     }
+
+
+
+    
 
 
 }

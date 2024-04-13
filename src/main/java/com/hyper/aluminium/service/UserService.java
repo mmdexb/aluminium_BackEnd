@@ -11,5 +11,9 @@ public interface UserService {
 
     int reg(String cid, String pwd, String realname, String email);
 
+    void delUser(String cid);
+
     PageBean getAllUser(int page, int pageSize);
+
+    User GetCertByid(String cid);
 }

@@ -53,7 +53,7 @@ public class EventController {
         return Result.success();
     }
 
-    @GetMapping("/admin/GetEvent")
+    @GetMapping("/public/GetEvent")
     public Result GetEvent(@RequestParam("id") int id) {
         log.info("获取活动,参数{}", id);
         event e = eventService.GetEvent(id);
