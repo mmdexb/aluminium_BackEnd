@@ -119,7 +119,7 @@ public class InfoServiceImpl implements InfoService {
                     atcs.add(a);
                 }
             } else {
-                System.out.println("HTTP GET请求失败：" + responseCode);
+                log.info("http get请求失败" + responseCode);
             }
         } catch (Exception e) {
             log.info(e.getMessage());
