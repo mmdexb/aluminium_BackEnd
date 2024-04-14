@@ -82,7 +82,7 @@ public class CertServiceImpl implements CertService {
             // 读取服务器返回的响应
             String response;
             while ((response = in.readLine()) != null) {
-                System.out.println("Server: " + response);
+                log.info("Server: " + response);
                 if (response.contains("Password correct.")) {
                     out.println("cert delete " + cid);
                     break;
@@ -90,7 +90,7 @@ public class CertServiceImpl implements CertService {
             }
             // 再次读取服务器返回的响应，判断删除结果
             while ((response = in.readLine()) != null) {
-                System.out.println("Server: " + response);
+                log.info("Server: " + response);
                 if (response.contains("Certificate does not exist.")) {
                     socket.close();
                     return "CID不存在，删除失败";
@@ -121,7 +121,7 @@ public class CertServiceImpl implements CertService {
             // 读取服务器返回的响应
             String response;
             while ((response = in.readLine()) != null) {
-                System.out.println("Server: " + response);
+                log.info("Server: " + response);
                 if (response.contains("Password correct.")) {
                     out.println("cert modify " + cid + " " + level);
                     break;
@@ -130,7 +130,7 @@ public class CertServiceImpl implements CertService {
 
             // 再次读取服务器返回的响应，判断修改结果
             while ((response = in.readLine()) != null) {
-                System.out.println("Server: " + response);
+                log.info("Server: " + response);
                 if (response.contains("Certificate does not exist.")) {
                     socket.close();
                     return "CID不存在，修改失败";

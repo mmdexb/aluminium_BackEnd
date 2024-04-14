@@ -71,7 +71,7 @@ public class InfoServiceImpl implements InfoService {
                     pilots.add(p);
                 }
             } else {
-                System.out.println("HTTP GET请求失败：" + responseCode);
+                log.info("HTTP GET请求失败：" + responseCode);
             }
         } catch (Exception e) {
             log.info(e.getMessage());
