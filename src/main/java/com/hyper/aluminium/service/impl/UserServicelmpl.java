@@ -7,15 +7,23 @@ import com.hyper.aluminium.pojo.PageBean;
 import com.hyper.aluminium.pojo.User;
 import com.hyper.aluminium.service.CertService;
 import com.hyper.aluminium.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
 
 @Service
 public class UserServicelmpl implements UserService {
 
+    private static final Logger log = LoggerFactory.getLogger(UserServicelmpl.class);
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -45,7 +53,7 @@ public class UserServicelmpl implements UserService {
 
 
     }
-
+    
     @Override
     public int reg(String cid, String pwd, String realname, String email) {
         String pwdMD5= DigestUtils.md5DigestAsHex(pwd.getBytes());
@@ -57,11 +65,16 @@ public class UserServicelmpl implements UserService {
             //email 已存在
             return 1;
         }else {
+            String s=certService.addCertToTXT(cid,"OBSPILOT",pwd);
             //插入数据库
             userMapper.reg(cid,pwdMD5,realname,email,"OBSPILOT");
             //调用certService
             certService.addCert(cid,pwd,"OBSPILOT");
+
+            Logger log1 = log;
+            log1.info(s);
             return 2;
+
         }
     }
 
@@ -109,6 +122,15 @@ public class UserServicelmpl implements UserService {
         int time=userMapper.getOnlineTimeByid(cid);
         return time;
     }
+
+    @Override
+    public List<User> getAllUserWithList() {
+        List<User> users=userMapper.getAllUser();
+        users.sort(Comparator.comparingInt(User::getOnlineTime).reversed());
+        return users;
+    }
+
+
 
 
 }

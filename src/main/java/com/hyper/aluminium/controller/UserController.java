@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.rmi.server.RemoteServer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-public class LoginController {
+public class UserController {
 
     @Autowired
     private UserService userService;
@@ -99,6 +98,19 @@ public class LoginController {
         int time=userService.GetOnlineTimeByid(cid);
 
         return Result.success(time);
+    }
+
+    @GetMapping("/public/GetAllOnlineSort")
+    public Result GetAllOnlineSort() {
+        List<User> users=new ArrayList<User>();
+        users=userService.getAllUserWithList();
+        //进行公开化处理 去掉隐私信息
+        for(User user:users){
+            user.setEmail("");
+            user.setPassword("");
+        }
+
+        return Result.success(users);
     }
 
 

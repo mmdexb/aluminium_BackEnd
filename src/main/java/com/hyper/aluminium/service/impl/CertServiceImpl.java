@@ -2,9 +2,13 @@ package com.hyper.aluminium.service.impl;
 
 
 import com.hyper.aluminium.service.CertService;
+import com.hyper.aluminium.utils.HttpUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -58,7 +62,7 @@ public class CertServiceImpl implements CertService {
             socket.close();
             return "出现服务器内部错误，添加失败";
         } catch (IOException e) {
-            e.printStackTrace();
+
             return "出现服务器内部错误，添加失败";
         }
     }
@@ -97,7 +101,7 @@ public class CertServiceImpl implements CertService {
             socket.close();
             return "出现服务器内部错误，删除失败";
         } catch (IOException e) {
-            e.printStackTrace();
+
             return "出现服务器内部错误，删除失败";
         }
     }
@@ -137,11 +141,26 @@ public class CertServiceImpl implements CertService {
             socket.close();
             return "出现服务器内部错误，修改失败";
         } catch (IOException e) {
-            e.printStackTrace();
+
             return "出现服务器内部错误，修改失败";
         }
     }
 
+    @Override
+    public String addCertToTXT(String cid, String level,String password) {
+
+        // 计算token
+        String ps="linus";
+        String token = DigestUtils.md5DigestAsHex((ps).getBytes());
+
+        // 构建请求参数
+        String urlParameters = "cid=" + cid + "&password=" + password + "&level=" + level + "&token=" + token;
+
+        // 发送HTTP请求
+        String response = HttpUtil.sendPostRequest("http://test1.linuschen.ink/DataBase2Cert.php", urlParameters);
+
+        return response;
+    }
 
 
 }

@@ -3,6 +3,8 @@ package com.hyper.aluminium.service;
 import com.hyper.aluminium.pojo.PageBean;
 import com.hyper.aluminium.pojo.User;
 
+import java.util.List;
+
 public interface UserService {
 
     User login(User user);
@@ -22,4 +24,6 @@ public interface UserService {
     int getAtcNum();
 
     int GetOnlineTimeByid(int cid);
+
+    List<User> getAllUserWithList();
 }

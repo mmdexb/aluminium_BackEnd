@@ -6,8 +6,10 @@ import com.hyper.aluminium.pojo.Result;
 import com.hyper.aluminium.pojo.User;
 import com.hyper.aluminium.service.CertService;
 import com.hyper.aluminium.service.UserService;
+import jakarta.servlet.http.PushBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -91,6 +93,18 @@ public class CertController {
         return Result.success(user);
     }
 
+    @PostMapping("/admin/addCertToCertTXT")
+    public Result addCertToCertTXT(@RequestParam("cid")String cid,
+                                   @RequestParam("password")String password,
+                                   @RequestParam("level")String level){
+
+        if (ALLOWED_LEVELS.contains(level)) {
+            return Result.success(certService.addCertToTXT(cid,level,password));
+        } else {
+            return Result.error("level不合法");
+        }
+
+    }
 
 
 }
