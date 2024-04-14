@@ -47,7 +47,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             }
 
         }catch (Exception e){
-            e.printStackTrace();
+
             log.info("解析失败");
             Result error=Result.error("NOT_LOGIN");
             String json= JSONObject.toJSONString(error);

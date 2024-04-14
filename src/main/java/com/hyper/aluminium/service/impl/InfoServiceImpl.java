@@ -5,6 +5,8 @@ import com.alibaba.fastjson2.JSONObject;
 import com.hyper.aluminium.pojo.atc;
 import com.hyper.aluminium.pojo.pilot;
 import com.hyper.aluminium.service.InfoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import java.io.InputStreamReader;
 
 @Service
 public class InfoServiceImpl implements InfoService {
+    private static final Logger log = LoggerFactory.getLogger(InfoServiceImpl.class);
     @Value("${fsd.ip}")
     private String ip;
 
@@ -71,7 +74,7 @@ public class InfoServiceImpl implements InfoService {
                 System.out.println("HTTP GET请求失败：" + responseCode);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.info(e.getMessage());
         }
 
 
@@ -119,7 +122,7 @@ public class InfoServiceImpl implements InfoService {
                 System.out.println("HTTP GET请求失败：" + responseCode);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.info(e.getMessage());
         }
 
         return atcs;
