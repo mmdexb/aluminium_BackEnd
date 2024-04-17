@@ -127,7 +127,7 @@ public class UserServicelmpl implements UserService {
     public List<User> getAllUserWithList() {
         List<User> users=userMapper.getAllUser();
         users.sort(Comparator.comparingInt(User::getOnlineTime).reversed());
-        return users.subList(0, Math.min(users.size(), 5));
+        return users.subList(0, Math.min(users.size(), 8));
         
     }
 
