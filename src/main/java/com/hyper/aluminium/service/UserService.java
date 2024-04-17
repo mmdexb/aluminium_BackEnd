@@ -2,6 +2,7 @@ package com.hyper.aluminium.service;
 
 import com.hyper.aluminium.pojo.PageBean;
 import com.hyper.aluminium.pojo.User;
+import com.hyper.aluminium.pojo.pilot;
 
 import java.util.List;
 
@@ -26,4 +27,8 @@ public interface UserService {
     int GetOnlineTimeByid(int cid);
 
     List<User> getAllUserWithList();
+
+    void addTime(int cid);
+
+    void addFlight(pilot pilot);
 }

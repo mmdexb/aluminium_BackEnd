@@ -38,4 +38,19 @@ public interface UserMapper {
 
     @Select("SELECT onlinetime FROM users where cid=#{cid}")
     int getOnlineTimeByid(int cid);
+
+    @Update("UPDATE users SET onlinetime = onlinetime + 1 WHERE cid = #{cid}")
+    void addTime(int cid);
+
+    @Insert("INSERT INTO Flight (FlightTime, CID, DepartureAirport, ArrivalAirport, Altitude, Latitude, Longitude, AircraftType) " +
+            "VALUES (#{flightTime}, #{cid}, #{departureAirport}, #{arrivalAirport}, #{altitude}, #{latitude}, #{longitude}, #{aircraftType})")
+    void addFlight(@Param("cid") int cid,
+                   @Param("flightTime") String flightTime,
+                   @Param("departureAirport") String departureAirport,
+                   @Param("arrivalAirport") String arrivalAirport,
+                   @Param("altitude") double altitude,
+                   @Param("latitude") double latitude,
+                   @Param("longitude") double longitude,
+                   @Param("aircraftType") String aircraftType);
+
 }

@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.hyper.aluminium.mapper.UserMapper;
 import com.hyper.aluminium.pojo.PageBean;
 import com.hyper.aluminium.pojo.User;
+import com.hyper.aluminium.pojo.pilot;
 import com.hyper.aluminium.service.CertService;
 import com.hyper.aluminium.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 @Service
@@ -131,6 +131,28 @@ public class UserServicelmpl implements UserService {
         
     }
 
+    @Override
+    public void addTime(int cid) {
+        userMapper.addTime(cid);
+    }
+
+    @Override
+    public void addFlight(pilot pilot) {
+        long currentTimeMillis = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // 获取飞行数据
+        int cid = pilot.getCid();
+        String flightTime= sdf.format(new Date(currentTimeMillis));
+        String departureAirport = pilot.getDepartureAirport();
+        String arrivalAirport = pilot.getArrivalAirport();
+        double altitude = pilot.getAltitude();
+        double latitude = pilot.getLatitude();
+        double longitude = pilot.getLongitude();
+        String aircraftType = pilot.getAircraftType();
+
+        // 向数据库插入飞行数据
+        userMapper.addFlight(cid, flightTime, departureAirport, arrivalAirport, altitude, latitude, longitude, aircraftType);
+    }
 
 
 
