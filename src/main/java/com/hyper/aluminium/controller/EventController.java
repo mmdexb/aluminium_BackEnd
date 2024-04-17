@@ -8,10 +8,7 @@ import com.hyper.aluminium.pojo.event;
 import com.hyper.aluminium.service.EventService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson2.JSONObject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,23 +29,8 @@ public class EventController {
     }
 
     @PostMapping("/admin/addEvent")
-    public Result addEvent(
-            @RequestParam("eventname") String eventname,
-            @RequestParam("eventtime") String eventtime,
-            @RequestParam("dep") String dep,
-            @RequestParam("arr") String arr,
-            @RequestParam("eventroute") String eventroute,
-            @RequestParam("eventinfo") String eventinfo
-    ) {
-        log.info("添加活动,参数{}", eventname);
-        event event = new event();
-        event.setEventname(eventname);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        event.setEventtime(LocalDateTime.parse(eventtime, formatter));
-        event.setDep(dep);
-        event.setArr(arr);
-        event.setEventroute(eventroute);
-        event.setEventinfo(eventinfo);
+    public Result addEvent(@RequestBody event event) {
+        log.info("添加活动,参数{}", event);
         eventService.addEvent(event);
         return Result.success();
     }
