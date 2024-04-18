@@ -2,6 +2,7 @@ package com.hyper.aluminium.service.impl;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import com.hyper.aluminium.pojo.Flight;
 import com.hyper.aluminium.pojo.atc;
 import com.hyper.aluminium.pojo.pilot;
 import com.hyper.aluminium.service.InfoService;
@@ -128,5 +129,26 @@ public class InfoServiceImpl implements InfoService {
         return atcs;
 
 
+    }
+
+    @Override
+    public List<Flight> listOnlineFlight() {
+        List<pilot> pilots =listOnlinePilots();
+        List<Flight>flights=new ArrayList<>();
+        //将pilot类型数组转换为Flight类型
+        for (pilot p:pilots) {
+            Flight f=new Flight(
+                    p.getCallsign(),
+                    p.getCid(),
+                    p.getDepartureAirport(),
+                    p.getArrivalAirport(),
+                    p.getLoginTime(),
+                    p.getRoute(),
+                    p.getAircraftType()
+
+            );
+            flights.add(f);
+        }
+        return flights;
     }
 }

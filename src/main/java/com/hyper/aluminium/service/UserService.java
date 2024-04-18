@@ -1,5 +1,6 @@
 package com.hyper.aluminium.service;
 
+import com.hyper.aluminium.pojo.Flight;
 import com.hyper.aluminium.pojo.PageBean;
 import com.hyper.aluminium.pojo.User;
 import com.hyper.aluminium.pojo.pilot;
@@ -32,5 +33,5 @@ public interface UserService {
 
     void addFlight(pilot pilot);
 
-    void addHistoryList(pilot pilot);
+    void addHistoryList(Flight flight);
 }

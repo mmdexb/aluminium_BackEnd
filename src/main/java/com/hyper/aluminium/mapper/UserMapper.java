@@ -1,5 +1,6 @@
 package com.hyper.aluminium.mapper;
 
+import com.hyper.aluminium.pojo.Flight;
 import com.hyper.aluminium.pojo.User;
 import com.hyper.aluminium.pojo.pilot;
 import org.apache.ibatis.annotations.*;
@@ -55,6 +56,6 @@ public interface UserMapper {
                    @Param("aircraftType") String aircraftType);
 
     @Insert("INSERT into History (FlightId, cid, Dep, Arr, Route, Type, StartTime, EndTime) " +
-            "VALUES (#{flightID},#{pilot.cid},#{pilot.DepartureAirport},#{pilot.ArrivalAirport},#{pilot.route},#{pilot.AircraftType},#{pilot.loginTime},#{time}) ")
-    void addHistoryList(pilot pilot, String flightID, String time);
+            "VALUES (#{flightID},#{flight.cid},#{flight.dep},#{flight.arr},#{flight.route},#{flight.type},#{flight.loginTime},#{time}) ")
+    void addHistoryList(Flight flight, String flightID, String time);
 }

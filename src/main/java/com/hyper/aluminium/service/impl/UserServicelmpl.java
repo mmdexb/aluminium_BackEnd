@@ -3,6 +3,7 @@ package com.hyper.aluminium.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.hyper.aluminium.mapper.UserMapper;
+import com.hyper.aluminium.pojo.Flight;
 import com.hyper.aluminium.pojo.PageBean;
 import com.hyper.aluminium.pojo.User;
 import com.hyper.aluminium.pojo.pilot;
@@ -155,14 +156,14 @@ public class UserServicelmpl implements UserService {
     }
 
     @Override
-    public void addHistoryList(pilot pilot) {
+    public void addHistoryList(Flight flight) {
         //获取时间戳 格式yyyyMMddHHmm
         long currentTimeMillis = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
         String time=sdf.format(new Date(currentTimeMillis));
 
-        String FlightID=pilot.getCid()+"-"+pilot.getCallsign()+"-"+pilot.getDepartureAirport()+"-"+pilot.getArrivalAirport()+pilot.getLoginTime();
-        userMapper.addHistoryList(pilot,FlightID,time);
+        String FlightID=flight.getCid()+"-"+flight.getCallsign()+"-"+flight.getDep()+"-"+flight.getArr()+flight.getLoginTime();
+        userMapper.addHistoryList(flight,FlightID,time);
 
     }
 

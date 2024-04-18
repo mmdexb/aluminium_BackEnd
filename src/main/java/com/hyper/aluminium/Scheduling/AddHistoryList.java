@@ -1,5 +1,6 @@
 package com.hyper.aluminium.Scheduling;
 
+import com.hyper.aluminium.pojo.Flight;
 import com.hyper.aluminium.pojo.pilot;
 import com.hyper.aluminium.service.InfoService;
 import com.hyper.aluminium.service.UserService;
@@ -24,12 +25,12 @@ public class AddHistoryList {
     @Autowired
     private UserService userService;
 
-    List<pilot> HistoryList=new ArrayList<>();
-    List<pilot> ResultList=new ArrayList<>();
+    List<Flight> HistoryList=new ArrayList<>();
+    List<Flight> ResultList=new ArrayList<>();
     @Scheduled(cron = "0 * * * * ?")
     public void FlightTrack(){
         //在线机组
-        List<pilot> OnlineList=infoService.listOnlinePilots();
+        List<Flight> OnlineList=infoService.listOnlineFlight();
         log.info("开始执行函数了 在线机组 :"+OnlineList.toString());
         log.info("历史在线机组 :"+HistoryList.toString());
 
@@ -41,6 +42,7 @@ public class AddHistoryList {
         }
 
         //循环有无在线机组中存在 但是历史机组中不存在的机组 并将其添加到历史机组（新上线机组）
+
         for(int i=0;i<OnlineList.size();i++){
             if(!HistoryList.contains(OnlineList.get(i))){
                 HistoryList.add(OnlineList.get(i));
