@@ -31,4 +31,6 @@ public interface UserService {
     void addTime(int cid);
 
     void addFlight(pilot pilot);
+
+    void addHistoryList(pilot pilot);
 }

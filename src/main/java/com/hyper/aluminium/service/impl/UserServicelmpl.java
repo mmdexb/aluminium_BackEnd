@@ -154,6 +154,17 @@ public class UserServicelmpl implements UserService {
         userMapper.addFlight(cid, flightTime, departureAirport, arrivalAirport, altitude, latitude, longitude, aircraftType);
     }
 
+    @Override
+    public void addHistoryList(pilot pilot) {
+        //获取时间戳 格式yyyyMMddHHmm
+        long currentTimeMillis = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+        String time=sdf.format(new Date(currentTimeMillis));
+
+        String FlightID=pilot.getCid()+"-"+pilot.getCallsign()+"-"+pilot.getDepartureAirport()+"-"+pilot.getArrivalAirport()+pilot.getLoginTime();
+        userMapper.addHistoryList(pilot,FlightID,time);
+
+    }
 
 
 }

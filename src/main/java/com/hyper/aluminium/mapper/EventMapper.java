@@ -4,6 +4,7 @@ import com.hyper.aluminium.pojo.event;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -20,4 +21,7 @@ public interface EventMapper {
 
     @Delete("delete from events where eventid=#{id}")
     void deleteEventByid(int id);
+
+    @Update("update events set eventname=#{event.eventname},eventtime=#{event.eventtime},dep=#{event.dep},arr=#{event.arr},eventroute=#{event.eventroute},eventinfo=#{event.eventinfo} where eventid=#{event.eventid}")
+    void updateEvent(event event,int id);
 }

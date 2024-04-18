@@ -56,5 +56,12 @@ public class EventController {
         return Result.success();
     }
 
+    @PostMapping("/admin/updateEvent")
+    public Result updateEvent(@RequestBody event event) {
+        log.info("更新活动,参数{}", event);
+        eventService.updateEvent(event);
+        return Result.success();
+    }
+
 
 }
