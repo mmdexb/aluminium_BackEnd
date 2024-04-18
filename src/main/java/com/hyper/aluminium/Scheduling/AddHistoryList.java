@@ -38,27 +38,23 @@ public class AddHistoryList {
         if(HistoryList.isEmpty()){
             HistoryList.addAll(OnlineList);
             log.info("历史在线机组为空 复制Online List :"+HistoryList.toString());
-        }else{
-            //循环历史在线机组
-            for(int i=0;i<HistoryList.size();i++){
-                //循环在线机组
-                for(int j=0;j<OnlineList.size();j++){
-                    //如果历史在线机组中有在线机组则跳过
-                    if(HistoryList.get(i).getCid()==OnlineList.get(j).getCid()){
-                        log.info("历史在线机组中有在线机组 :"+HistoryList.get(i).toString());
-                    }
-                    //如果历史在线机组中没有在线机组则将历史在线机组中的机组添加到归档机组中
-                    if(HistoryList.get(i).getCid()!=OnlineList.get(j).getCid()){
+        }
 
-                        ResultList.add(HistoryList.get(i));
-                        log.info("历史在线机组中没有在线机组 :"+HistoryList.get(i).toString());
-                        log.info("将历史在线机组中的机组添加到归档机组中 :"+HistoryList.get(i).toString());
-                        //在历史机组中删除
-                        HistoryList.remove(i);
-                    }
-                }
+        //循环有无在线机组中存在 但是历史机组中不存在的机组 并将其添加到历史机组（新上线机组）
+        for(int i=0;i<OnlineList.size();i++){
+            if(!HistoryList.contains(OnlineList.get(i))){
+                HistoryList.add(OnlineList.get(i));
+                log.info("在线机组中存在 但是历史在线机组中不存在的机组 :"+OnlineList.get(i).toString());
             }
-
+        }
+        //循环有无在线机组中不存在 但是历史机组中存在 并将其添加到归档机组（原来在线 现在下线了）
+        for(int i=0;i<HistoryList.size();i++){
+            if(!OnlineList.contains(HistoryList.get(i))){
+                ResultList.add(HistoryList.get(i));
+                log.info("在线机组中不存在 但是历史在线机组中存在的机组 添加到归档:"+HistoryList.get(i).toString());
+                //在历史机组中删除他
+                HistoryList.remove(HistoryList.get(i));
+            }
         }
 
         //如果归档机组不为空则将归档机组中的机组添加到数据库中
