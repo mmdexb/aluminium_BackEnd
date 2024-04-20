@@ -5,10 +5,6 @@ import com.hyper.aluminium.pojo.event;
 
 
 public interface EventService {
-
-
-
-
     PageBean getAllEvent(int page, int pageSize);
 
     void addEvent(event event);

@@ -9,6 +9,5 @@ public interface CertService {
 
     Object modCertLevel(String cid, String level);
 
-
     String addCertToTXT(String cid, String level,String password);
 }

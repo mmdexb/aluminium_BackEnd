@@ -34,4 +34,12 @@ public interface UserService {
     void addFlight(pilot pilot);
 
     void addHistoryList(Flight flight);
+
+    List<Flight> GetFlightByid(String cid);
+
+    String getLoveAirport(String cid);
+
+    String getLoveType(String cid);
+
+    List<Flight> GetFlightByid2(String cid);
 }

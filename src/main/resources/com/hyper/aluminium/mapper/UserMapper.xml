@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyper.aluminium.mapper.UserMapper">
+    <select id="GetAirportList" resultType="java.util.Map" >
+        SELECT Field, COUNT(*) as Count
+        FROM (
+                 SELECT Dep as Field FROM History
+                 UNION ALL
+                 SELECT Arr as Field FROM History
+             ) AS CombinedFields
+        GROUP BY Field
+
+    </select>
+
+    <select id="GetAirportListByid" resultType="java.util.Map">
+        SELECT Field, COUNT(*) as Count
+        FROM (
+                 SELECT Dep as Field FROM History WHERE cid = #{cid}
+                 UNION ALL
+                 SELECT Arr as Field FROM History WHERE cid = #{cid}
+             ) AS CombinedFields
+        GROUP BY Field
+        ORDER BY Count DESC
+
+    </select>
+
+    <select id="GetTypeListByid" resultType="java.util.Map">
+        SELECT Type, COUNT(*) as Count
+        FROM History
+        WHERE cid = #{cid}
+        GROUP BY Type
+        ORDER BY Count DESC
+    </select>
+</mapper>

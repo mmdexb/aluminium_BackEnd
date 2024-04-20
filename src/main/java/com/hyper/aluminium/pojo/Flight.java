@@ -12,15 +12,15 @@ public class Flight {
     private int Cid;
     private String dep;
     private String arr;
-    private String LoginTime;
+    private String StartTime;
     private String route ;
     private String type;
 
-    public Flight(String callsign, int cid, String dep,  String arr, String loginTime,String route,String type) {
+    public Flight(String callsign, int cid, String dep,  String arr, String StartTime,String route,String type) {
         this.Callsign = callsign;
         this.Cid = cid;
         this.dep = dep;
-        this.LoginTime = loginTime;
+        this.StartTime = StartTime;
         this.arr = arr;
         this.route = route;
         this.type=type;

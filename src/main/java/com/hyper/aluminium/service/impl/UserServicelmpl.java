@@ -9,7 +9,6 @@ import com.hyper.aluminium.pojo.User;
 import com.hyper.aluminium.pojo.pilot;
 import com.hyper.aluminium.service.CertService;
 import com.hyper.aluminium.service.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -162,9 +161,81 @@ public class UserServicelmpl implements UserService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
         String time=sdf.format(new Date(currentTimeMillis));
 
-        String FlightID=flight.getCid()+"-"+flight.getCallsign()+"-"+flight.getDep()+"-"+flight.getArr()+flight.getLoginTime();
+        String FlightID=flight.getCid()+"-"+flight.getCallsign()+"-"+flight.getDep()+"-"+flight.getArr()+flight.getStartTime();
         userMapper.addHistoryList(flight,FlightID,time);
 
+    }
+
+    @Override
+    public List<Flight> GetFlightByid(String cid) {
+        List<Flight> lists=userMapper.GetFlightByid(cid);
+        //循环数组 格式化时间
+        for(Flight f:lists){
+            String startTime=f.getStartTime();
+            //格式化时间
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            Date date = null;
+            try {
+                date = sdf.parse(startTime);
+            } catch (Exception e) {
+                log.info("时间格式化错误");
+            }
+            //格式化时间
+            SimpleDateFormat sdf1 =new SimpleDateFormat();
+            sdf1.applyPattern("yyyy-MM-dd HH:mm:ss");
+            f.setStartTime(sdf1.format(date));
+        }
+        return lists;
+    }
+
+    @Override
+    public String getLoveAirport(String cid) {
+        int cid2=Integer.parseInt(cid);
+        List<Map<String, Integer>> lists=userMapper.GetAirportListByid(cid2);
+        log.info("开始数据库查询");
+        if(!lists.isEmpty()){
+            log.info(lists.get(0).toString());
+            return lists.get(0).toString();
+        }
+        return "暂无数据";
+    }
+
+    @Override
+    public String getLoveType(String cid) {
+        log.info("查询最爱机场");
+        //String转为int
+        int cid1=Integer.parseInt(cid);
+        List<Map<String, Integer>> lists=userMapper.GetTypeListByid(cid1);
+        if(!lists.isEmpty()){
+            return lists.get(0).toString();
+        }
+        return "暂无数据";
+    }
+
+    @Override
+    public List<Flight> GetFlightByid2(String cid) {
+        List<Flight> lists=userMapper.GetFlightByid(cid);
+        //循环数组 格式化时间
+        for(Flight f:lists){
+            String startTime=f.getStartTime();
+            //格式化时间
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            Date date = null;
+            try {
+                date = sdf.parse(startTime);
+            } catch (Exception e) {
+                log.info("时间格式化错误");
+            }
+            //格式化时间
+            SimpleDateFormat sdf1 =new SimpleDateFormat();
+            sdf1.applyPattern("yyyy-MM-dd HH:mm:ss");
+            f.setStartTime(sdf1.format(date));
+            //如果route属性长度大于25 则改为前25个字符加...
+            if(f.getRoute().length()>30){
+                f.setRoute(f.getRoute().substring(0,30)+"...");
+            }
+        }
+        return lists;
     }
 
 

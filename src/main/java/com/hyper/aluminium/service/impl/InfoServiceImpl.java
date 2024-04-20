@@ -2,10 +2,10 @@ package com.hyper.aluminium.service.impl;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.hyper.aluminium.pojo.Flight;
-import com.hyper.aluminium.pojo.atc;
-import com.hyper.aluminium.pojo.pilot;
+import com.hyper.aluminium.mapper.UserMapper;
+import com.hyper.aluminium.pojo.*;
 import com.hyper.aluminium.service.InfoService;
+import com.hyper.aluminium.utils.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,13 +18,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Map;
 
 
 @Service
 public class InfoServiceImpl implements InfoService {
     private static final Logger log = LoggerFactory.getLogger(InfoServiceImpl.class);
+    private final UserMapper userMapper;
     @Value("${fsd.ip}")
     private String ip;
+
+    public InfoServiceImpl(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     @Override
     public List<pilot> listOnlinePilots() {
@@ -150,5 +156,30 @@ public class InfoServiceImpl implements InfoService {
             flights.add(f);
         }
         return flights;
+    }
+
+    @Override
+    public List<Map<String, Integer>> GetAirportList() {
+        List<Map<String, Integer>> lits=userMapper.GetAirportList();
+        //循环map如果键的开头为Z，则从数据库中查询其键的中文名
+
+        //从数据库中统计每个出现得icao的
+        return userMapper.GetAirportList();
+    }
+
+    @Override
+    public RouteInfo GetRoute(String dep, String arr) throws Exception {
+        //从localhost:9807//getRoute获取json
+        String url="http://localhost:9807//getRoute?from="+dep+"&dest="+arr;
+        HttpUtil httpUtil=new HttpUtil();
+        String result=httpUtil.sendGetRequest(url);
+        //使用fastjson进行格式化
+        JSONObject jsonObject=JSONObject.parseObject(result);
+        //转换为字符串返回
+        result=jsonObject.getString("route");
+        RouteInfo routeInfo=new RouteInfo();
+        routeInfo.setRoute(jsonObject.getString("route"));
+        routeInfo.setDistance(jsonObject.getString("distance"));
+        return routeInfo;
     }
 }

@@ -31,9 +31,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             response.getWriter().write(json);
             return false;
         }
-
-
-
         try {
             Claims claims= JwtUtils.parseJWT(jwt);
             String level=claims.get("level",String.class);

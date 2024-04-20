@@ -1,5 +1,6 @@
 package com.hyper.aluminium.mapper;
 
+import com.hyper.aluminium.pojo.AirportList;
 import com.hyper.aluminium.pojo.Flight;
 import com.hyper.aluminium.pojo.User;
 import com.hyper.aluminium.pojo.pilot;
@@ -7,6 +8,7 @@ import org.apache.ibatis.annotations.*;
 
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UserMapper {
@@ -55,7 +57,26 @@ public interface UserMapper {
                    @Param("longitude") double longitude,
                    @Param("aircraftType") String aircraftType);
 
-    @Insert("INSERT into History (FlightId, cid, Dep, Arr, Route, Type, StartTime, EndTime) " +
-            "VALUES (#{flightID},#{flight.cid},#{flight.dep},#{flight.arr},#{flight.route},#{flight.type},#{flight.loginTime},#{time}) ")
+    @Insert("INSERT into History (FlightId, cid, Dep, Arr, Route, Type, StartTime, EndTime,CallSign) " +
+            "VALUES (#{flightID},#{flight.cid},#{flight.dep},#{flight.arr},#{flight.route},#{flight.type},#{flight.loginTime},#{time},#{flight.Callsign}) ")
     void addHistoryList(Flight flight, String flightID, String time);
+
+    //统计Dep和Arr中每个字符串的出现次数
+    @MapKey("Field")
+    List<Map<String, Integer>> GetAirportList();
+
+    @Select("SELECT * FROM History WHERE cid=#{cid} ORDER BY StartTime DESC LIMIT 3")
+    List<Flight> GetFlightByid(String cid);
+
+    @MapKey("Field")
+    List<Map<String, Integer>> GetAirportListByid(int cid);
+
+    @MapKey("Field")
+    List<Map<String, Integer>> GetTypeListByid(int cid);
+
+    @Select("SELECT output.name FROM output WHERE icao=#{icao}")
+    String GetChineseNameByicao(String icao);
+
+    @Update("UPDATE users SET level=#{level} WHere cid=#{cid}")
+    void ModifyLevel(String cid, String level);
 }
