@@ -144,7 +144,7 @@ public class CertServiceImpl implements CertService {
                     return "CID不存在，修改失败";
                 } else if (response.contains("Your change has been executed")) {
                     socket.close();
-//                    userMapper.ModifyLevel(cid,level);
+                    userMapper.ModifyLevel(cid,level);
                     return "等级修改成功";
                 }
             }
