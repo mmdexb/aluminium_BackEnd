@@ -171,7 +171,7 @@ public class CertServiceImpl implements CertService {
         String urlParameters = "cid=" + cid + "&password=" + password + "&level=" + level + "&token=" + token;
 
         // 发送HTTP请求
-        return HttpUtil.sendPostRequest("http://test1.linuschen.ink/DataBase2Cert.php", urlParameters);
+        return HttpUtil.sendPostRequest("http://demo.linuschen.ink/fsd/DataBase2Cert.php", urlParameters);
     }
 
 

@@ -35,7 +35,7 @@ public class UserServicelmpl implements UserService {
     }
 
     @Override
-    public int Reset(String cid, String pwd,String pwdMD5) {
+    public Integer Reset(String cid, String pwd,String pwdMD5) {
         User e= userMapper.FindByCid(cid);
         if(e!=null){
             //调用certService
@@ -100,13 +100,13 @@ public class UserServicelmpl implements UserService {
     }
 
     @Override
-    public int getPilotNum() {
+    public Integer getPilotNum() {
         int num=userMapper.getPilotNum();
         return num;
     }
 
     @Override
-    public int getAtcNum() {
+    public Integer getAtcNum() {
         int number=0;
         List<User> users =userMapper.getAllUser();
         for(User u:users){
@@ -118,8 +118,8 @@ public class UserServicelmpl implements UserService {
     }
 
     @Override
-    public int GetOnlineTimeByid(int cid) {
-        int time=userMapper.getOnlineTimeByid(cid);
+    public Integer GetOnlineTimeByid(int cid) {
+        Integer time=userMapper.getOnlineTimeByid(cid);
         return time;
     }
 

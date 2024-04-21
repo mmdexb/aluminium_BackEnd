@@ -45,5 +45,11 @@ public class NoticeServiceImpl implements NoticeService {
         noticeMapper.UpdateNotice(notice,id);
     }
 
+    @Override
+    public notice GetNoticeByid(int id) {
+
+       return noticeMapper.GetNoticeByid(id);
+    }
+
 
 }

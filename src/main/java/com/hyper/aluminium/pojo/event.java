@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class event {
-    private int eventid;
+    private Integer eventid;
     private String eventname;
     private String eventtime;
     private String dep;

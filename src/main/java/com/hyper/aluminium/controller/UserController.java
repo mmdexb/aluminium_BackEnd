@@ -72,8 +72,14 @@ public class UserController {
                       @RequestParam("password") String pwd,
                       @RequestParam("realname") String realname,
                       @RequestParam("email") String email) {
+        //循环参数看看是否有空着的 cid是否为纯数字
+        if (cid.equals("") || pwd.equals("") || realname.equals("") || email.equals("")) {
+            return Result.error("注册信息不完整");
+        }else if( !cid.matches("^[0-9]*$")){
+            return Result.error("CID只能为纯数字");
+        }
         int res = userService.reg(cid, pwd, realname, email);
-
+        log.info(String.valueOf(res));
         if (res == 0) {
             return Result.error("CID已存在");
         } else if (res == 1) {

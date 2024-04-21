@@ -2,6 +2,7 @@ package com.hyper.aluminium.controller;
 
 import com.hyper.aluminium.pojo.PageBean;
 import com.hyper.aluminium.pojo.Result;
+import com.hyper.aluminium.pojo.event;
 import com.hyper.aluminium.pojo.notice;
 import com.hyper.aluminium.service.InfoService;
 import com.hyper.aluminium.service.NoticeService;
@@ -43,6 +44,11 @@ public class NoticeController {
         return Result.success();
     }
 
+    @GetMapping("/public/GetNoticeByid")
+    public Result GetNoticeByid(@RequestParam("id") int id){
+        notice notice =noticeService.GetNoticeByid(id);
+        return Result.success(notice);
+    }
 
 
 }

@@ -31,17 +31,17 @@ public interface UserMapper {
     @Update("update users set password=#{pwdMD5} where cid=#{cid}")
     void ResetPwd(String cid, String pwdMD5);
 
-    @Insert("insert into users(cid,password,realname,email,level) values(#{cid},#{pwdMD5},#{realname},#{email},#{level})")
+    @Insert("insert into users(cid,password,realname,email,level,onlinetime) values(#{cid},#{pwdMD5},#{realname},#{email},#{level},0)")
     void reg(String cid, String pwdMD5, String realname, String email,String level);
 
     @Select("select * from users")
-    public List<User> getAllUser();
+    List<User> getAllUser();
 
     @Select("SELECT COUNT(*) FROM aluminium.users")
-    int getPilotNum();
+    Integer getPilotNum();
 
     @Select("SELECT onlinetime FROM users where cid=#{cid}")
-    int getOnlineTimeByid(int cid);
+    Integer getOnlineTimeByid(int cid);
 
     @Update("UPDATE users SET onlinetime = onlinetime + 1 WHERE cid = #{cid}")
     void addTime(int cid);

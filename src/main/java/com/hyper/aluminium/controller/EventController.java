@@ -30,6 +30,11 @@ public class EventController {
 
     @PostMapping("/admin/addEvent")
     public Result addEvent(@RequestBody event event) {
+        String time=event.getEventtime();
+        //格式化传来的时间 2024-05-01T09:00:00.000Z
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        LocalDateTime dateTime = LocalDateTime.parse(time, formatter);
+        event.setEventtime(dateTime.toString());
         log.info("添加活动,参数{}", event);
         eventService.addEvent(event);
         return Result.success();
@@ -58,6 +63,10 @@ public class EventController {
 
     @PostMapping("/admin/updateEvent")
     public Result updateEvent(@RequestBody event event) {
+        String time=event.getEventtime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        LocalDateTime dateTime = LocalDateTime.parse(time, formatter);
+        event.setEventtime(dateTime.toString());
         log.info("更新活动,参数{}", event);
         eventService.updateEvent(event);
         return Result.success();

@@ -13,7 +13,7 @@ public class User {
         private String password;
         private String level;
         private String email;
-        private int OnlineTime;
+        private Integer OnlineTime;
 
 
 }

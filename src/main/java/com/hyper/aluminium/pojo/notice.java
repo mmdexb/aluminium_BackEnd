@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class notice {
-    private int id;
+    private Integer id;
     private String title;
     private String time;
     private String author;

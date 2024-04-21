@@ -18,4 +18,7 @@ public interface NoticeMapper {
 
     @Update("UPDATE board set title=#{notice.title},author=#{notice.author},time=#{notice.time},content=#{notice.content} Where id=#{id}")
     void UpdateNotice(notice notice, int id);
+
+    @Select("select * from board where id=#{id}")
+    notice GetNoticeByid(int id);
 }

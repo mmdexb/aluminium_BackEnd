@@ -44,7 +44,7 @@ public class CertController {
         //判断level是否合法
         log.info("add cert cid:{},pwd:{},level:{},", cid, pwd, level);
         if (ALLOWED_LEVELS.contains(level)) {
-            int res=userService.reg(cid, pwd, realname, email);
+            Integer res=userService.reg(cid, pwd, realname, email);
             if (res==0){
                 return Result.error("CID已存在");
             }else if(res==1){

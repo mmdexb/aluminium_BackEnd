@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class pilot {
     private String callsign;
-    private int cid;
+    private Integer cid;
     //纬度
     private double latitude;
     //经度
@@ -17,9 +17,9 @@ public class pilot {
     //海拔高度
     private double altitude;
     //空速
-    private int speed;
+    private Integer speed;
     //航向
-    private int heading;
+    private Integer heading;
     //起飞机场
     private String DepartureAirport;
     //到达机场
@@ -31,7 +31,7 @@ public class pilot {
     //机型
     private String AircraftType;
     //巡航高度
-    private int cruiseAltitude;
+    private Integer cruiseAltitude;
     //备降机场
     private String alternateAirport;
     //登录时间

@@ -34,7 +34,7 @@ public class InfoServiceImpl implements InfoService {
 
     @Override
     public List<pilot> listOnlinePilots() {
-        String jsonUrl = "http://"+ip+"/json.php";
+        String jsonUrl = "http://"+ip+"/fsd/json.php";
         List<pilot> pilots = null;
         try {
             pilots = new ArrayList<>();
@@ -91,7 +91,7 @@ public class InfoServiceImpl implements InfoService {
     @Override
     public List<atc> listOnlineATC() {
 
-        String jsonUrl = "http://"+ip+"/json.php";
+        String jsonUrl = "http://"+ip+"/fsd/json.php";
         List<atc> atcs = null;
         try {
             atcs = new ArrayList<>();
@@ -163,7 +163,7 @@ public class InfoServiceImpl implements InfoService {
         List<Map<String, Integer>> lits=userMapper.GetAirportList();
         //循环map如果键的开头为Z，则从数据库中查询其键的中文名
 
-        //从数据库中统计每个出现得icao的
+
         return userMapper.GetAirportList();
     }
 

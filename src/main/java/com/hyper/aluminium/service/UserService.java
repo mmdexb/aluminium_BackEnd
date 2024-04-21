@@ -11,7 +11,7 @@ public interface UserService {
 
     User login(User user);
 
-    int Reset(String cid, String pwd,String pwdMD5);
+    Integer Reset(String cid, String pwd,String pwdMD5);
 
     int reg(String cid, String pwd, String realname, String email);
 
@@ -21,11 +21,11 @@ public interface UserService {
 
     User GetCertByid(String cid);
 
-    int getPilotNum();
+    Integer getPilotNum();
 
-    int getAtcNum();
+    Integer getAtcNum();
 
-    int GetOnlineTimeByid(int cid);
+    Integer GetOnlineTimeByid(int cid);
 
     List<User> getAllUserWithList();
 
